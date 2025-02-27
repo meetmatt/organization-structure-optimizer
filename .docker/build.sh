@@ -17,4 +17,7 @@ fi
 echo "Building Docker image..."
 
 # shellcheck disable=SC2086
-DOCKER_BUILDKIT=1 docker build ${ARGS} -t oso:snapshot .
+DOCKER_BUILDKIT=1 docker build ${ARGS} -t oso:builder --target=builder .
+
+# shellcheck disable=SC2086
+DOCKER_BUILDKIT=1 docker build ${ARGS} -t oso:snapshot --target=runtime .
