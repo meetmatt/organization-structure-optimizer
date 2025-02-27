@@ -7,6 +7,7 @@ ARG _MAVEN_TAG=${MAVEN_VERSION}-eclipse-temurin-${JDK_VERSION}-${DIST}
 FROM maven:${_MAVEN_TAG} AS builder
 WORKDIR /app
 COPY pom.xml ./
+RUN --mount=type=cache,target=/root/.m2 rm -rf /root/.m2/repository
 RUN --mount=type=cache,target=/root/.m2 mvn -ntp dependency:go-offline
 COPY src ./src
 COPY checkstyle.xml ./
