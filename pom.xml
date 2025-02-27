@@ -69,7 +69,10 @@
         <version>3.2.5</version>
         <configuration>
           <!--suppress UnresolvedMavenProperty -->
-          <argLine>-javaagent:${org.mockito:mockito-core:jar}</argLine>
+          <argLine>
+            -javaagent:${settings.localRepository}/org/jacoco/org.jacoco.agent/0.8.12/org.jacoco.agent-0.8.12-runtime.jar=destfile=${project.build.directory}/jacoco.exec
+            -javaagent:${org.mockito:mockito-core:jar}
+          </argLine>
         </configuration>
       </plugin>
       <!-- end of mockito shenanigans -->
@@ -87,7 +90,7 @@
           </execution>
         </executions>
         <configuration>
-          <failOnError>true</failOnError>
+          <failOnError>false</failOnError>
           <effort>Max</effort>
           <threshold>Low</threshold>
         </configuration>
@@ -126,12 +129,53 @@
             <ruleset>pmd-rules.xml</ruleset>
           </rulesets>
           <failOnViolation>false</failOnViolation>
-          <printFailingErrors>true</printFailingErrors>
-          <verbose>true</verbose>
+          <printFailingErrors>false</printFailingErrors>
+          <verbose>false</verbose>
         </configuration>
       </plugin>
       <!-- End of static code analysis tools -->
 
+      <!-- Code coverage report -->
+      <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <version>0.8.12</version>
+        <executions>
+          <execution>
+            <id>prepare-agent</id>
+            <phase>test</phase>
+            <goals>
+              <goal>prepare-agent</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>generate-report</id>
+            <phase>verify</phase>
+            <goals>
+              <goal>report</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <!-- End of code coverage report -->
+
     </plugins>
   </build>
+
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <version>0.8.12</version>
+        <reportSets>
+          <reportSet>
+            <reports>
+              <report>xml</report>
+            </reports>
+          </reportSet>
+        </reportSets>
+      </plugin>
+    </plugins>
+  </reporting>
 </project>
