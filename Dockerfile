@@ -7,8 +7,11 @@ ARG _MAVEN_TAG=${MAVEN_VERSION}-eclipse-temurin-${JDK_VERSION}-${DIST}
 FROM maven:${_MAVEN_TAG} AS builder
 WORKDIR /app
 COPY pom.xml ./
-RUN mvn dependency:go-offline
+RUN --mount=type=cache,target=/root/.m2 mvn dependency:go-offline >/dev/null
 COPY src ./src
+COPY checkstyle.xml ./
+COPY pmd-rules.xml ./
+RUN mvn checkstyle:check pmd:check spotbugs:check
 RUN mvn clean package
 
 FROM eclipse-temurin:${JDK_VERSION}-jre AS runtime

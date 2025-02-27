@@ -59,6 +59,9 @@
             </goals>
           </execution>
         </executions>
+        <configuration>
+          <silent>true</silent>
+        </configuration>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -69,7 +72,66 @@
           <argLine>-javaagent:${org.mockito:mockito-core:jar}</argLine>
         </configuration>
       </plugin>
+      <!-- end of mockito shenanigans -->
+
+      <!-- Static code analysis tools -->
+      <plugin>
+        <groupId>com.github.spotbugs</groupId>
+        <artifactId>spotbugs-maven-plugin</artifactId>
+        <version>4.9.1.0</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>check</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <failOnError>true</failOnError>
+          <effort>Max</effort>
+          <threshold>Low</threshold>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+        <version>3.6.0</version>
+        <executions>
+          <execution>
+            <phase>validate</phase>
+            <goals>
+              <goal>check</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <configLocation>checkstyle.xml</configLocation>
+          <failOnViolation>true</failOnViolation>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-pmd-plugin</artifactId>
+        <version>3.26.0</version>
+        <executions>
+          <execution>
+            <phase>validate</phase>
+            <goals>
+              <goal>check</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <rulesets>
+            <ruleset>pmd-rules.xml</ruleset>
+          </rulesets>
+          <failOnViolation>false</failOnViolation>
+          <printFailingErrors>true</printFailingErrors>
+          <verbose>true</verbose>
+        </configuration>
+      </plugin>
+      <!-- End of static code analysis tools -->
+
     </plugins>
-    <!-- end of mockito shenanigans -->
   </build>
 </project>
