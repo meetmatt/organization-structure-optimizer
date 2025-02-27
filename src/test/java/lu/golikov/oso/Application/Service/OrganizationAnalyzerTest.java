@@ -8,14 +8,15 @@ import org.junit.Test;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Objects;
 
-import static junit.framework.TestCase.assertEquals;
+import static junit.framework.TestCase.*;
 
 public class OrganizationAnalyzerTest {
     @Test
     public void testAnalyzeWithoutAnalyzersReturnsEmptyResult() throws Exception {
         String fileName = "test.csv";
-        Path filePath = Paths.get(getClass().getClassLoader().getResource(fileName).toURI());
+        Path filePath = Paths.get(Objects.requireNonNull(getClass().getClassLoader().getResource(fileName)).toURI());
 
         OrganizationAnalyzer analyzer = new OrganizationAnalyzer();
         analyzer.addAnalyzer(new SalaryBalanceAnalyzer(1.20, 1.50));

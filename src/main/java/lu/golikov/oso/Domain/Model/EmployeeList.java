@@ -4,7 +4,7 @@ import java.util.*;
 
 public class EmployeeList extends AbstractList<Employee> {
     private final List<Employee> employees = new ArrayList<>();
-    private final Set<Integer> employeeIds = new HashSet<>(); // Track unique names
+    private final Set<Integer> employeeIds = new HashSet<>();
 
     @Override
     public Employee get(int index) {

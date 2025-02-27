@@ -17,10 +17,6 @@ public class OrganizationAnalyzer {
         this.employeeRepositoryFactory = new EmployeeRepositoryFactory();
     }
 
-    public OrganizationAnalyzer(EmployeeRepositoryFactory employeeRepositoryFactory) {
-        this.employeeRepositoryFactory = employeeRepositoryFactory;
-    }
-
     public void addAnalyzer(Analyzer analyzer) {
         this.analyzers.add(analyzer);
     }
