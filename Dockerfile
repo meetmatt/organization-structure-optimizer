@@ -9,8 +9,8 @@ WORKDIR /app
 COPY pom.xml ./
 RUN --mount=type=cache,target=/root/.m2 mvn -ntp dependency:go-offline
 COPY . .
-RUN --mount=type=cache,target=/root/.m2 mvn -ntp validate test verify package
-RUN chmod 666 ./target/site/jacoco/jacoco.xml
+RUN --mount=type=cache,target=/root/.m2 mvn -ntp validate test verify package site
+RUN chmod a+r -R ./target
 
 FROM eclipse-temurin:${JDK_VERSION}-jre AS runtime
 WORKDIR /app

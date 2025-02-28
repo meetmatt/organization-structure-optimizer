@@ -165,6 +165,21 @@
       </plugin>
       <!-- End of code coverage report -->
 
+      <!-- Documentation -->
+      <plugin>
+        <artifactId>maven-site-plugin</artifactId>
+        <version>3.12.1</version>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.doxia</groupId>
+        <artifactId>doxia-module-markdown</artifactId>
+        <version>1.12.0</version>
+      </plugin>
+      <plugin>
+        <artifactId>maven-project-info-reports-plugin</artifactId>
+        <version>3.6.1</version>
+      </plugin>
+      <!-- End of documentation -->
     </plugins>
   </build>
 
@@ -177,7 +192,7 @@
         <reportSets>
           <reportSet>
             <reports>
-              <report>xml</report>
+              <report>report</report>
             </reports>
           </reportSet>
         </reportSets>
